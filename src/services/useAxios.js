@@ -1,12 +1,11 @@
-import React, { useMemo, createContext, useContext } from "react";
+import { useMemo } from "react";
 import Axios from "axios";
 import { useAuth } from "./useAuth";
 import { apiEndpoint } from "../config";
 
-export const AxiosContext = createContext();
-
-export default function AxiosProvider({ children }) {
+export default function useAxios() {
   const auth = useAuth();
+
   const axios = useMemo(() => {
     const axios = Axios.create({
       baseURL: apiEndpoint,
@@ -15,7 +14,7 @@ export default function AxiosProvider({ children }) {
       },
     });
 
-    axios.interceptors.request.use((config) => {
+    axios.interceptors.request.use(config => {
       if (auth.token) {
         config.headers.Authorization = `Bearer ${auth.token}`;
       }
@@ -26,13 +25,7 @@ export default function AxiosProvider({ children }) {
     return axios;
 
     // eslint-disable-next-line
-  }, []);
+  }, [auth.token]);
 
-  return (
-    <AxiosContext.Provider value={axios}>{children}</AxiosContext.Provider>
-  );
-}
-
-export function useAxios() {
-  return useContext(AxiosContext);
+  return axios;
 }

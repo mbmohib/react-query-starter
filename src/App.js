@@ -2,21 +2,22 @@ import React from "react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClientProvider, QueryClient } from "react-query";
 import Routes from "../src/routes";
-import AxiosProvider from "./services/useAxios";
 import AuthProvider from "./services/useAuth";
+import { BrowserRouter } from "react-router-dom";
+
 // Create a client
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <AuthProvider>
-      <AxiosProvider>
-        <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <AuthProvider>
           <Routes />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </AxiosProvider>
-    </AuthProvider>
+        </AuthProvider>
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

@@ -1,12 +1,25 @@
 import { createContext, useState, useContext, useMemo } from "react";
+import { useMutation } from "react-query";
+import axios from "axios";
+import { apiEndpoint } from "../config";
 
 export const AuthContext = createContext();
 
-export default function AuthProvider({ children }) {
-  const [token, setToken] = useState("token");
+export default function AuthProvider(props) {
+  const [token, setToken] = useState();
 
-  const login = () => {
-    setToken(token);
+  const { mutate, isLoading } = useMutation(
+    data => axios.post(`${apiEndpoint}/login`, data),
+    {
+      onSuccess: data => {
+        setToken(data.data);
+      },
+    }
+  );
+
+  const login = data => {
+    mutate(data);
+    setToken("data.data");
   };
 
   const logout = () => {
@@ -19,17 +32,20 @@ export default function AuthProvider({ children }) {
       token: token,
       login: login,
       logout: logout,
+      isLoading: isLoading,
     }),
 
     // eslint-disable-next-line
-    [token]
+    [token, isLoading]
   );
 
-  return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={contextValue} {...props} />;
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error(`useAuth must be used within a AuthProvider`);
+  }
+  return context;
 }

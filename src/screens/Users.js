@@ -7,15 +7,15 @@ export default function Users() {
 
   return (
     <>
-      {isLoading && "Loading..."}
-      {data?.data.map((user) => (
+      {isLoading && <p>Loading...</p>}
+      {data?.data.map(user => (
         <div key={user.id}>
           <p>{user.first_name}</p>
 
           <Link to={`users/${user.id}`}>Details</Link>
         </div>
       ))}
-      {isFetching && "Fetching in the background..."}
+      {isFetching && <p>Fetching in the background...</p>}
     </>
   );
 }
