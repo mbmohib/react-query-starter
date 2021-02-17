@@ -3,7 +3,7 @@ import { Container, Box } from "@material-ui/core";
 import CounterDisplay from "./CounterDisplay";
 import CounterButtons from "./CounterButtons";
 import CounterDisplayAgain from "./CounterDisplayAgain";
-import { useAuth } from "../services";
+import { useAuth } from "../hooks";
 import CounterProvider from "./Context";
 
 const CounterView = () => {

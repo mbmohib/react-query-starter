@@ -1,5 +1,5 @@
 import React from "react";
-import { useUser } from "../services";
+import { useUser } from "../hooks";
 import { useParams } from "react-router-dom";
 
 export default function User() {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@material-ui/core";
 import { useCount } from "./Context";
-import { useAuth } from "../services";
+import { useAuth } from "../hooks";
 
 const CounterDisplay = () => {
   const { count } = useCount();

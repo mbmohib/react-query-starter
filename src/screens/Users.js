@@ -1,5 +1,5 @@
 import React from "react";
-import { useUsers } from "../services";
+import { useUsers } from "../hooks";
 import { Link } from "react-router-dom";
 
 export default function Users() {

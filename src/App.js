@@ -2,7 +2,7 @@ import React from "react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClientProvider, QueryClient } from "react-query";
 import Routes from "../src/routes";
-import { AuthProvider } from "./services/useAuth";
+import { AuthProvider } from "./hooks/useAuth";
 
 // Create a client
 const queryClient = new QueryClient();

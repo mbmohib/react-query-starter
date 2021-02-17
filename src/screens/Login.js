@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Box, TextField, Container } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { Button } from "../components";
-import { useAuth } from "../services";
+import { useAuth } from "../hooks";
 import { useHistory } from "react-router-dom";
 
 export default function Login() {

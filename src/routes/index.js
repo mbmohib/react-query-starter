@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import { Login, Users, User } from "../screens";
-import { useAuth } from "../services";
+import { useAuth } from "../hooks";
 
 const PrivateRoute = ({ component: Component, isAuth, ...props }) => {
   return (
