@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import Axios from "axios";
-import { useAuth } from "./useAuth";
+import { useAuth } from "./";
 import { apiEndpoint } from "../config";
 
 export default function useAxios() {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import { Login, Users, User } from "../screens";
-import { useAuth } from "../services/useAuth";
+import { useAuth } from "../services";
 
 const PrivateRoute = ({ component: Component, isAuth, ...props }) => {
   return (
@@ -21,13 +21,20 @@ export default function Routes() {
   console.log("auth | Routes :>> ", auth);
 
   return (
-    <Switch>
-      <Route path="/login" component={Login} exact />
-      <Route exact path="/">
-        {isAuth ? <Redirect to="/users" /> : <Redirect to="/login" />}
-      </Route>
-      <Route path="/users" component={Users} exact isAuth={isAuth} />
-      <PrivateRoute path="/users/:id" component={User} exact isAuth={isAuth} />
-    </Switch>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/login" component={Login} exact />
+        <Route exact path="/">
+          {isAuth ? <Redirect to="/users" /> : <Redirect to="/login" />}
+        </Route>
+        <PrivateRoute path="/users" component={Users} exact isAuth={isAuth} />
+        <PrivateRoute
+          path="/users/:id"
+          component={User}
+          exact
+          isAuth={isAuth}
+        />
+      </Switch>
+    </BrowserRouter>
   );
 }

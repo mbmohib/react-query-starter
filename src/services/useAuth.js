@@ -5,7 +5,7 @@ import { apiEndpoint } from "../config";
 
 export const AuthContext = createContext();
 
-export default function AuthProvider(props) {
+export function AuthProvider(props) {
   const [token, setToken] = useState();
 
   const { mutate, isLoading } = useMutation(
@@ -42,7 +42,7 @@ export default function AuthProvider(props) {
   return <AuthContext.Provider value={contextValue} {...props} />;
 }
 
-export function useAuth() {
+export default function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error(`useAuth must be used within a AuthProvider`);

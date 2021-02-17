@@ -2,8 +2,7 @@ import React from "react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClientProvider, QueryClient } from "react-query";
 import Routes from "../src/routes";
-import AuthProvider from "./services/useAuth";
-import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./services/useAuth";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -11,11 +10,9 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes />
-        </AuthProvider>
-      </BrowserRouter>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

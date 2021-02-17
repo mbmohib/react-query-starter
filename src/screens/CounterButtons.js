@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import { useCount } from "./Context";
-import { useAuth } from "../services/useAuth";
+import { useAuth } from "../services";
 
 const CounterButtons = () => {
   const { count, changeCount } = useCount();
