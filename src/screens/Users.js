@@ -15,6 +15,7 @@ export default function Users() {
           <Link to={`users/${user.id}`}>Details</Link>
         </div>
       ))}
+
       {isFetching && <p>Fetching in the background...</p>}
     </>
   );

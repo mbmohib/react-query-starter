@@ -1,21 +1,19 @@
 import React from "react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClientProvider, QueryClient } from "react-query";
-import Routes from "../src/routes";
 import { AuthProvider } from "./hooks/useAuth";
+import AppRoutes from "./routes";
 
 // Create a client
 const queryClient = new QueryClient();
 
-function App() {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Routes />
+        <AppRoutes />
+        <ReactQueryDevtools />
       </AuthProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
-
-export default App;

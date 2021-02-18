@@ -8,10 +8,7 @@ import { useHistory } from "react-router-dom";
 export default function Login() {
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
-  const auth = useAuth();
-  const { login, isLoading, isAuth } = auth;
-
-  console.log("auth | Login", auth);
+  const { login, isLoading, isAuth } = useAuth();
 
   const onSubmit = data => {
     login({

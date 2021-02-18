@@ -1,42 +1,58 @@
-import { createContext, useState, useContext, useMemo } from "react";
+import { createContext, useContext, useMemo, useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import axios from "axios";
 import { apiEndpoint } from "../config";
+import { useLocalStorage } from "./";
 
 export const AuthContext = createContext();
 
 export function AuthProvider(props) {
-  const [token, setToken] = useState();
+  const [authData, setAuthData] = useState({});
+  const [auth, setAuth, removeAuth] = useLocalStorage("auth");
+  const { user, token } = authData || {};
+
+  useEffect(() => {
+    if (auth) {
+      setAuthData(auth);
+    }
+  }, [auth]);
 
   const { mutate, isLoading } = useMutation(
     data => axios.post(`${apiEndpoint}/login`, data),
     {
       onSuccess: data => {
-        setToken(data.data);
+        const info = {
+          user: { name: "John Doe", email: "john_doe@john.com" },
+          token: data?.data?.token ?? "",
+        };
+
+        setAuth(info);
+        setAuthData(info);
       },
     }
   );
 
   const login = data => {
     mutate(data);
-    setToken("data.data");
   };
 
   const logout = () => {
-    setToken(null);
+    removeAuth();
+    setAuthData({});
   };
 
   const contextValue = useMemo(
     () => ({
       isAuth: !!token,
       token: token,
+      user: user,
       login: login,
       logout: logout,
       isLoading: isLoading,
     }),
 
     // eslint-disable-next-line
-    [token, isLoading]
+    [user, token, isLoading]
   );
 
   return <AuthContext.Provider value={contextValue} {...props} />;
