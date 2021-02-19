@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { Box, TextField, Container } from "@material-ui/core";
 import { useForm } from "react-hook-form";
-import { Button } from "../components";
+import { Button, Box, Container } from "../components";
 import { useAuth } from "../hooks";
 import { useHistory } from "react-router-dom";
 
@@ -35,30 +34,22 @@ export default function Login() {
       >
         <Box borderColor="grey.500" border={1} px={4} py={6}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <TextField
-              fullWidth
+            <input
               label="Email"
               name="email"
-              // value={values.email}
-              margin="normal"
-              inputRef={register}
+              ref={register}
               error={errors.email}
             />
-            <TextField
-              error={errors.password}
-              fullWidth
+            <input
               label="Password"
               name="password"
               type="password"
-              inputRef={register}
-              // value={values.password}
-              margin="normal"
+              ref={register}
+              error={errors.password}
             />
             <Button
-              fullWidth
               variant="contained"
               color="primary"
-              justify="flex-start"
               mt={2}
               disabled={isLoading}
               loading={isLoading}
