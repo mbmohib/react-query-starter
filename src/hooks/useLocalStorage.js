@@ -31,6 +31,7 @@ const useLocalStorage = (key, defaultValue) => {
 
     if (currentData) {
       const parsedData = JSON.parse(currentData);
+
       if (parsedData) {
         setData(parsedData);
       }
@@ -50,13 +51,17 @@ const useLocalStorage = (key, defaultValue) => {
     [key]
   );
 
+  const check = () => {
+    return !!getDataFromLocalStorageByKey(key);
+  };
+
   useEffect(() => {
     window.addEventListener("storage", checkLocalStorage);
 
     return () => window.removeEventListener("storage", checkLocalStorage);
   }, [key, checkLocalStorage]);
 
-  return [data, set, remove];
+  return [data, set, remove, check];
 };
 
 export default useLocalStorage;

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
+    "jsonwebtoken": "^8.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-error-boundary": "^3.1.0",

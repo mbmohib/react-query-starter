@@ -2,20 +2,23 @@ import { createContext, useContext, useMemo, useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import axios from "axios";
 import { apiEndpoint } from "../config";
-import { useLocalStorage } from "./";
+import { AuthService } from "../utils";
 
 export const AuthContext = createContext();
+const Auth = new AuthService();
 
-export function AuthProvider(props) {
-  const [authData, setAuthData] = useState({});
-  const [auth, setAuth, removeAuth] = useLocalStorage("auth");
-  const { user, token } = authData || {};
+export function AuthProvider({ initialState = {}, ...props }) {
+  const auth = Auth.getAuth() || {};
+  const [authData, setAuthData] = useState();
+  const { user, token } = authData || initialState || {};
 
   useEffect(() => {
-    if (auth) {
+    if (auth.token) {
       setAuthData(auth);
     }
-  }, [auth]);
+
+    // eslint-disable-next-line
+  }, [auth.token]);
 
   const { mutate, isLoading } = useMutation(
     data => axios.post(`${apiEndpoint}/login`, data),
@@ -26,7 +29,7 @@ export function AuthProvider(props) {
           token: data?.data?.token ?? "",
         };
 
-        setAuth(info);
+        Auth.setAuth(info);
         setAuthData(info);
       },
     }
@@ -37,7 +40,7 @@ export function AuthProvider(props) {
   };
 
   const logout = () => {
-    removeAuth();
+    Auth.removeAuth();
     setAuthData({});
   };
 

@@ -19,7 +19,7 @@ export default function Login() {
 
   useEffect(() => {
     if (isAuth) {
-      history.push("/users");
+      history.push("/");
     }
   }, [isAuth, history]);
 
