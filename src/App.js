@@ -11,13 +11,11 @@ const queryClient = new QueryClient();
 const Auth = new AuthService();
 
 export default function App() {
-  const auth = Auth.getAuth();
-
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <QueryClientProvider client={queryClient}>
-        <AuthProvider initialState={auth}>
+        <AuthProvider initialState={Auth.getAuth()}>
           <AppRoutes />
           <ReactQueryDevtools />
         </AuthProvider>
