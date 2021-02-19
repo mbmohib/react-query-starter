@@ -9,6 +9,10 @@ const clearLocalStorageByKey = key => {
   window.localStorage.removeItem(key);
 };
 
+const getDataFromLocalStorageByKey = key => {
+  return window.localStorage.getItem(key);
+};
+
 const useLocalStorage = (key, defaultValue) => {
   const [data, setData] = useState();
 
@@ -19,7 +23,7 @@ const useLocalStorage = (key, defaultValue) => {
   const remove = useCallback(() => clearLocalStorageByKey(key), [key]);
 
   useEffect(() => {
-    const currentData = window.localStorage.getItem(key);
+    const currentData = getDataFromLocalStorageByKey(key);
 
     if (!currentData && defaultValue) {
       set(defaultValue);

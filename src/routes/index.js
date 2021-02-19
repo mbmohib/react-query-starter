@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import { Login, Users, User } from "../screens";
 import { Layout } from "../components";
-import { useAuth } from "../hooks";
 
 const PrivateRoute = ({ component: Component, isAuth, ...props }) => {
   return (
@@ -15,9 +14,7 @@ const PrivateRoute = ({ component: Component, isAuth, ...props }) => {
   );
 };
 
-export default function Routes() {
-  const { isAuth } = useAuth();
-
+export default function Routes({ isAuth }) {
   return (
     <Layout>
       <BrowserRouter>

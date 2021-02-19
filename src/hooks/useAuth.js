@@ -46,9 +46,9 @@ export function AuthProvider(props) {
       isAuth: !!token,
       token: token,
       user: user,
+      isLoading: isLoading,
       login: login,
       logout: logout,
-      isLoading: isLoading,
     }),
 
     // eslint-disable-next-line
